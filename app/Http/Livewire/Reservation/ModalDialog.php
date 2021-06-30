@@ -5,14 +5,17 @@ namespace App\Http\Livewire\Reservation;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Spatie\Activitylog\Models\Activity;
 
 class ModalDialog extends Component
 {
     public ?Reservation $reservation;
+    public $activities;
 
     protected $listeners = [
         'getReservation'
     ];
+
 
     public function render()
     {
@@ -22,6 +25,7 @@ class ModalDialog extends Component
     public function getReservation(int $id)
     {
         $this->reservation = Reservation::find($id);
+        $this->activities = Activity::inLog('reservation_log')->where('subject_id', $id)->get();
     }
 
     public function payment()

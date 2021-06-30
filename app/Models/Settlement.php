@@ -14,11 +14,17 @@ class Settlement extends Model
         'user_id',
         'amount',
         'note',
+        'type'
     ];
 
     public function tickets()
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
     }
 
     public function user()

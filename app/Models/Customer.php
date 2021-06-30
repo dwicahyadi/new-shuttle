@@ -16,12 +16,23 @@ class Customer extends Model
         'member'
         ];
 
+    public function scopeSearch($query, $search)
+    {
+        return $query
+            ->where('name','like', "%$search%")
+            ->orWhere('phone', 'like', "%$search%");
+    }
+
     public function reservations(){
         return $this->hasMany(Reservation::class);
     }
 
     public function tickets(){
         return $this->hasMany(Ticket::class,'phone','phone');
+    }
+
+    public function packages(){
+        return $this->hasMany(Package::class,'sender_phone','phone');
     }
 
     public function updateCustomerReservationCount()

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6">
             <h4>Data Paket</h4>
-            <ul class="list-group" id="tickets">
+            <ul class="list-group" id="packages">
                 @forelse($transactions as $package)
                     <li class="list-group-item">
                         <div class="d-flex align-items-center">
@@ -44,10 +44,10 @@
 
                     <table class="table">
                         <tr>
-                            <th class="text-left">Point Tujuan</th>
-                            <th class="text-left">KG</th>
-                            <th class="text-left">Koli</th>
-                            <th class="text-right">Amount</th>
+                            <th>Point Tujuan</th>
+                            <th>KG</th>
+                            <th>Koli</th>
+                            <th>Amount</th>
                         </tr>
                         @forelse($transactions->groupBy('departure.arrival_point.name') as $arrival => $data)
                             <td>{{ $arrival }}</td>

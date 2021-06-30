@@ -38,7 +38,6 @@ class PrintController extends Controller
     }
 
     public function settlement (Settlement $settlement){
-//        return $settlement->detail_transaction()->groupBy('departure_point_name','arrival_point_name');
         return view('prints.settlement', ['settlement'=>$settlement]);
     }
 }

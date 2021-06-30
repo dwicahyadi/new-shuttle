@@ -4,7 +4,7 @@
             <h4>Data Tiket</h4>
             <ul class="list-group" id="tickets">
                 @forelse($transactions as $ticket)
-                    <li class="list-group-item d-flex align-items-center     ">
+                    <li class="list-group-item d-flex align-items-center">
                         <div class="mr-2">
                             <small class="clearfix">Seat {{ $ticket->seat }}</small>
                             <img

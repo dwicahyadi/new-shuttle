@@ -32,6 +32,7 @@ class PackageSettlement extends Component
             [
                 'amount'=> $this->amount,
                 'note' => $this->note,
+                'type' => 'packages',
                 'user_id' => Auth::id()
             ]
         );

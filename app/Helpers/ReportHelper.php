@@ -22,11 +22,14 @@ class ReportHelper
         return $data;
     }
 
-    public static function settlement($point_id, $date)
+    public static function settlement($point_id, $date, $end_date)
     {
         return Settlement::whereHas('user', function ($query) use($point_id){
-            return $query->where('point_id', $point_id);
-        })->whereDate('created_at',$date)->get();
+            if ($point_id) {
+                return $query->where('point_id', $point_id);
+            }
+            return $query;
+        })->whereBetween('created_at',[$date, $end_date])->get();
     }
 
     public static function ocupancy($point_id, $date)
