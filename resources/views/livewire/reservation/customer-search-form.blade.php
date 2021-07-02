@@ -44,9 +44,7 @@
                 {{ $customer->tickets_count }}
             </div>
         @else
-            <div class="alert alert-light">
-                {{ $customer->tickets_count }}
-            </div>
+            <p>Saat ini sudah {{ $customer->tickets_count }} Tiket</p>
         @endif
         <div class="mb-2">
             <span>Nomor Handphone</span><br>
@@ -62,10 +60,9 @@
                     wire:click="changeCustomer">
                 Ganti Pelanggan
             </button>
-            <button class="btn btn-sm btn-light"
-                    wire:click="changeCustomer">
-                Riwayat
-            </button>
+            <a href="{{ route('master.customer.show',['id'=>$customer->id]) }}" class="btn btn-sm btn-light">
+                Tampilkan
+            </a>
 
         </div>
     @endif

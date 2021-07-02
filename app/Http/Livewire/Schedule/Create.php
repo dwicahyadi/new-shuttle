@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Schedule;
 
 use App\Models\Point;
+use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
