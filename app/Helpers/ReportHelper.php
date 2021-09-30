@@ -32,11 +32,14 @@ class ReportHelper
         })->whereBetween('created_at',[$date, $end_date])->get();
     }
 
-    public static function ocupancy($point_id, $date)
+    public static function ocupancy($point_id, $date, $end_date)
     {
-        return Schedule::with(['paidTickets','departures'])
-            ->whereHas('departures',function ($query) use($point_id, $date){
-                return $query->whereDate('date', $date)->where('departure_point_id', $point_id)->whereNotNull('is_manifested');
+        return Schedule::with(['paidTickets','departures','departures.arrival_point', 'departures.departure_point'])
+            ->whereHas('departures',function ($query) use($end_date, $point_id, $date){
+                return $query->whereDate('date','>=', $date)
+                    ->whereDate('date','<=', $end_date)
+                    ->where('departure_point_id', $point_id)
+                    ->whereNotNull('is_manifested');
             })
             ->get();
     }

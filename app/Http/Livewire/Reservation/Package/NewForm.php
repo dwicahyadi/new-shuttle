@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class NewForm extends Component
 {
-    public const FIRST_KILO_PRICE = 35000;
+    public const FIRST_KILO_PRICE = 25000;
     public const NEXT_KILO_PRICE = 5000;
 
     public ?Departure $departure = null;

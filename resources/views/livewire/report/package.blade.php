@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <label>Point Keberangaktan</label>
                             <select wire:model.defer="point" class="form-control">
-                                <option value="">Pilih..</option>
+                                <option value="">Semua</option>
                                 @forelse($cities as $city)
                                     <optgroup label="[{{$city->code}}] {{$city->name}}">
                                         @forelse($city->points as $item)
@@ -52,30 +52,43 @@
                         <thead class="">
                         <tr>
                             <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th>Keberangkatan</th>
-                            <th>Tujuan</th>
-                            <th>Penumpang</th>
-                            <th>Okupansi</th>
-                            <th>Okupansi (7 Seats)</th>
+                            <th>Paket</th>
+                            <th>Point</th>
+                            <th>Telepon Pengirim</th>
+                            <th>Nama Pengirim</th>
+                            <th>Telepon Penerima</th>
+                            <th>Nama Penerima</th>
+                            <th>Berat</th>
+                            <th>Jumah Koli</th>
+                            <th>Jenis</th>
+                            <th>Isi</th>
+                            <th>Harga</th>
+                            <th>CSO</th>
+                            <th>Settlement</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        @forelse($report as $row)
+                        @forelse($report ?? [] as $row)
                             <tr>
-                                <td>{{ $row->departures[0]->date }}</td>
-                                <td>{{ $row->departures[0]->time }}</td>
-                                <td>{{ $row->departures[0]->departure_point->name }}</td>
-                                <td>{{ $row->departures[0]->arrival_point->name }}</td>
-                                <td>{{ $row->paidTickets->count()}}</td>
-                                <td>{{ $row->paidTickets->count() / $row->seats *100  }}%</td>
-                                <td>{{ number_format($row->paidTickets->count() / 7 *100, 2)*1  }}%</td>
+                                <td>{{ $row->created_at }}</td>
+                                <td>PKT{{ \Illuminate\Support\Str::padLeft($row->id,'6','0') }}</td>
+                                <td>{{ $row->departure_point->name }}</td>
+                                <td>{{ $row->sender_name }}</td>
+                                <td>{{ $row->sender_phone }}</td>
+                                <td>{{ $row->receiver_name }}</td>
+                                <td>{{ $row->receiver_phone }}</td>
+                                <td>{{ $row->weight }}</td>
+                                <td>{{ $row->piece }}</td>
+                                <td>{{ $row->type }}</td>
+                                <td>{{ $row->content }}</td>
+                                <td align="right">{{ number_format($row->price)}}</td>
+                                <td>{{ $row->user->name }}</td>
+                                <td>{{ $row->settlemnt_id ? 'Sudah' : 'Belum' }}</td>
                             </tr>
                         @empty
                         @endforelse
                         </tbody>
-
                     </table>
                 </div>
             </div>

@@ -33,6 +33,18 @@
                             </select>
                         </div>
 
+                        <div class="form-group">
+                            <label>Driver</label>
+                            <select class="form-control" wire:model="driver_id">
+                                <option value="0">All</option>
+                                @forelse($drivers as $driver)
+                                    <option value="{{ $driver->id }}">{{ $driver->name ?? 'Driver Name' }}</option>
+                                @empty
+                                    <option value="0">No Driver</option>
+                                @endforelse
+                            </select>
+                        </div>
+
 
                         <div class="form-group">
                             <button type="button" class="btn btn-primary" wire:click="$refresh">Tampilkan</button>
@@ -55,27 +67,35 @@
                             <th>Jam</th>
                             <th>Keberangkatan</th>
                             <th>Tujuan</th>
-                            <th>Penumpang</th>
-                            <th>Okupansi</th>
-                            <th>Okupansi (7 Seats)</th>
+                            <th>Driver</th>
+                            <th>Unit</th>
+                            <th>BOP</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        @forelse($report as $row)
+                        @forelse($report ?? [] as $schedule)
                             <tr>
-                                <td>{{ $row->departures[0]->date }}</td>
-                                <td>{{ $row->departures[0]->time }}</td>
-                                <td>{{ $row->departures[0]->departure_point->name }}</td>
-                                <td>{{ $row->departures[0]->arrival_point->name }}</td>
-                                <td>{{ $row->paidTickets->count()}}</td>
-                                <td>{{ $row->paidTickets->count() / $row->seats *100  }}%</td>
-                                <td>{{ number_format($row->paidTickets->count() / 7 *100, 2)*1  }}%</td>
+                                @foreach($schedule->departures as $departure)
+                                    <td>{{ $departure->date }}</td>
+                                    <td>{{ $departure->time }}</td>
+                                    <td>{{ $departure->departure_point->name }}</td>
+                                    <td>{{ $departure->arrival_point->name }}</td>
+                                @endforeach
+                                <td>{{ $schedule->driver->name ?? 'Driver Name'}}</td>
+                                <td>{{ $schedule->car->code }}</td>
+                                <td>{{ number_format($schedule->costs ?? 0) }}</td>
                             </tr>
                         @empty
                         @endforelse
                         </tbody>
-
+                        <tfoot class="thead-light">
+                        <tr>
+                            <th>Total</th>
+                            <th align="right" class="text-right" colspan="5"></th>
+                            <th align="right" class="text-right">{{ number_format($report->sum('costs') ?? 0)}}</th>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

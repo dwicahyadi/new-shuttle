@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function (){
 
     Route::name('schedule.')->group(function (){
         Route::view('schedule/create','schedule.create')->name('create');
+        Route::view('schedule/manage','schedule.manage')->name('manage');
     });
 
     Route::view('reservation','reservation.index')->name('reservation');
@@ -62,6 +63,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('print/ticket/{reservationId}',[\App\Http\Controllers\PrintController::class, 'ticket'])->name('ticket');
         Route::get('print/manifest/{schedule}',[\App\Http\Controllers\PrintController::class, 'manifest'])->name('manifest');
         Route::get('print/settlement/{settlement}',[\App\Http\Controllers\PrintController::class, 'settlement'])->name('settlement');
+        Route::get('print/package/{package}',[\App\Http\Controllers\PrintController::class, 'package'])->name('package');
     });
 
     Route::name('finance.')->group(function (){
@@ -72,7 +74,8 @@ Route::middleware(['auth'])->group(function (){
 
     Route::name('report.')->group(function (){
         Route::view('report/ticket','report.tickets')->name('ticket');
-        Route::view('report/income_statement','report.income_statement')->name('income_statement');
+        Route::view('report/package','report.package')->name('package');
+        Route::view('report/income_statement','report.income')->name('income_statement');
         Route::view('report/settlement','report.settlement')->name('settlement');
         Route::view('report/occupancy','report.occupancy')->name('occupancy');
         Route::view('report/operational_costs','report.operational_cost')->name('operational_cost');

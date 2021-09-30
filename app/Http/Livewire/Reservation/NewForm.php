@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Reservation;
 
+use App\Helpers\WAHelper;
 use App\Models\Customer;
 use App\Models\Departure;
 use App\Models\Discount;
@@ -148,6 +149,10 @@ class NewForm extends Component
         activity('reservation_log')->performedOn($reservation)->causedBy(Auth::user())->log('payment');
         $this->emit('updateBill');
         $reservation->customer->updateCustomerCountReservationFinish();
+
+        /*$msg = WAHelper::msgBuilder($reservation);
+        $wa = WAHelper::send($reservation->customer->phone, $msg);
+        activity('reservation_log')->performedOn($reservation)->causedBy(Auth::user())->log('Whatasapp'.$wa);*/
     }
 
     public function save()

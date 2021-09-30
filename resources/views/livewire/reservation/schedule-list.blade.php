@@ -14,7 +14,7 @@
                         <strong class="clearfix">{{ substr($departure->time, 0,5) }}</strong>
                     </div>
                     <div>
-                        <label class="badge badge-success">{{ $departure->schedule->seats - $departure->tickets_count }}</label>
+                        @livewire('partial.seat-count-badge',['departureId'=>$departure->id], key('seatBadge'.$departure->id))
                     </div>
                 </div>
             </li>

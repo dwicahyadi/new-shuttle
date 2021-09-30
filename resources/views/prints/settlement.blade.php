@@ -15,7 +15,8 @@
 <body onload="window.print()">
 <div style="width: 300px; page-break-before: always">
     <div style="text-align: center; margin-top: 5px">
-        <img src="{{ asset('images/logo bw.png') }}" alt="logo" width="120">
+{{--        <img src="{{ asset('images/logo bw.png') }}" alt="logo" width="120">--}}
+        <h2>ASIA TRANS</h2>
     </div>
     <br>
     <h2>Settlement</h2>

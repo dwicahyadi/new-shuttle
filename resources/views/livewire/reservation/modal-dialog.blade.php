@@ -70,7 +70,7 @@
                                                     <div class="flex-fill">
                                                         <small>{{ $ticket->date }} {{ $ticket->departure->time }}</small><br>
                                                         <small>{{ $ticket->departure_point->city->name }} {{ $ticket->departure_point->name }}</small> -
-                                                        <small>{{ $ticket->departure->arrival_point->name }} {{ $ticket->departure->arrival_point->name }}</small><br>
+                                                        <small>{{ $ticket->departure->arrival_point->city->name }} {{ $ticket->departure->arrival_point->name }}</small><br>
                                                         <span>{{ $ticket->name }}</span> /
                                                         <span>{{ $ticket->phone }}</span>
                                                     </div>

@@ -23,6 +23,11 @@
         .clickable{
             cursor: pointer;
         }
+
+        .seat-card{
+        cursor: pointer;
+        }
+
     </style>
     @livewireStyles
 </head>
@@ -62,6 +67,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="scheduleMenu">
                                 <a class="dropdown-item" href="{{ route('schedule.create') }}">Buka Jadwal</a>
+                                <a class="dropdown-item" href="{{ route('schedule.manage') }}">Kelola Jadwal</a>
                             </div>
                         </li>
 
@@ -96,7 +102,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="reportMenu">
                                     <a class="dropdown-item" href="{{ route('report.ticket') }}">Penjualan Tiket</a>
-                                    <a class="dropdown-item" href="{{ route('report.ticket') }}">Penjualan Paket</a>
+                                    <a class="dropdown-item" href="{{ route('report.package') }}">Penjualan Paket</a>
                                     <a class="dropdown-item" href="{{ route('report.income_statement') }}">Pendapatan</a>
                                     <a class="dropdown-item" href="{{ route('report.occupancy') }}">Okupansi</a>
                                     <a class="dropdown-item" href="{{ route('report.settlement') }}">Settlement</a>

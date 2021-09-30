@@ -6,7 +6,7 @@
         @if($isEdit)
             @livewire('reservation.edit-ticket-form',['ticket'=>$ticket,], key("editTicket.{$ticket->id}"))
         @else
-            <div class="">
+            <div class="seat-card">
 
                 <div class="d-flex">
                     <div>
@@ -34,19 +34,21 @@
                     <small class="">{{ $ticket->departure_point->name ?? 'point_name' }}</small>
                 </div>
 
-                <div class="d-flex mt-4">
-                    <button class="btn btn-primary btn-sm flex-fill"
-                            data-toggle="modal" data-target="#ResevationDetail" data-backdrop="static"
-                            wire:click="$emit('getReservation',{{ $ticket->reservation_id }})"
-                    >
-                        Tampilkan
-                    </button>
-                    @if($ticket->status == 'paid')
-                        <button class="btn btn-outline-dark btn-sm" onclick="window.open('{{ route('print.ticket', ['reservationId'=> $ticket->reservation_id]) }}', '', 'width=500,height=500')"><i class="fa fa-print"></i></button>
-                    @else
-                        <button class="btn btn-outline-dark btn-sm" wire:click="toggleEdit"><i class="fa fa-edit"></i></button>
-                        <button class="btn btn-outline-danger btn-sm" onclick="confirm('Yakin batalkan tiket ini?') || event.stopImmediatePropagation()" wire:click="cancelTicket"><i class="fa fa-times"></i></button>
-                    @endif
+                <div class="button-holder">
+                    <div class="d-flex mt-4">
+                        <button class="btn btn-primary btn-sm flex-fill"
+                                data-toggle="modal" data-target="#ResevationDetail" data-backdrop="static"
+                                wire:click="$emit('getReservation',{{ $ticket->reservation_id }})"
+                        >
+                            Tampilkan
+                        </button>
+                        @if($ticket->status == 'paid')
+                            <button class="btn btn-outline-dark btn-sm" onclick="window.open('{{ route('print.ticket', ['reservationId'=> $ticket->reservation_id]) }}', '', 'width=500,height=500')"><i class="fa fa-print"></i></button>
+                        @else
+                            <button class="btn btn-outline-dark btn-sm" wire:click="toggleEdit"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="confirm('Yakin batalkan tiket ini?') || event.stopImmediatePropagation()" wire:click="cancelTicket"><i class="fa fa-times"></i></button>
+                        @endif
+                    </div>
                 </div>
             </div>
         @endif

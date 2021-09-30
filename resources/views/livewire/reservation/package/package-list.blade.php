@@ -26,6 +26,8 @@
                         </div>
                         <div class="p-2 text-right">
                             <strong>Rp. {{ number_format($package->price) }}</strong>
+                            <br>
+                            <button class="btn btn-outline-dark btn-sm" onclick="window.open('{{ route('print.package', ['package'=> $package]) }}', '', 'width=500,height=500')"><i class="fa fa-print"></i></button>
                         </div>
                     </div>
 

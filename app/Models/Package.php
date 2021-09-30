@@ -37,4 +37,9 @@ class Package extends Model
     {
         return $this->belongsTo(Point::class,'departure_point_id','id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'payment_by');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ExpenseHelper;
+use App\Models\Package;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Models\Settlement;
@@ -39,5 +40,10 @@ class PrintController extends Controller
 
     public function settlement (Settlement $settlement){
         return view('prints.settlement', ['settlement'=>$settlement]);
+    }
+
+    public function package(Package $package)
+    {
+        return view('prints.package', ['package'=>$package]);
     }
 }
