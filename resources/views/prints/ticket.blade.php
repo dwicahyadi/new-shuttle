@@ -74,7 +74,7 @@
             @endif
             <hr>
             <img src="{{ asset('images/whatsapp.svg') }}" alt="wa" width="16">&nbsp;0877 2020 7999<br>
-            <img src="{{ asset('images/instagram-sketched.svg') }}" alt="wa" width="16">&nbsp;@suryashuttle
+{{--            <img src="{{ asset('images/instagram-sketched.svg') }}" alt="wa" width="16">&nbsp;@suryashuttle--}}
         </div>
     </div>
 @empty
