@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Reservation;
 
+use App\Helpers\WAHelper;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -41,6 +42,11 @@ class ModalDialog extends Component
         );
         activity('reservation_log')->performedOn($this->reservation)->causedBy(Auth::user())->log('payment');
         $this->reservation->customer->updateCustomerCountReservationFinish();
+
+        $msg = WAHelper::msgBuilder($this->reservation);
+        $wa = WAHelper::send($this->reservation->customer->phone, $msg);
+        activity('reservation_log')->performedOn($this->reservation)->causedBy(Auth::user())->log('Whatasapp'.$wa);
+
         $this->emit('updateBill');
         $this->emit('reload');
         $this->getReservation($this->reservation->id);

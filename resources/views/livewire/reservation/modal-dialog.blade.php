@@ -92,8 +92,6 @@
                                         </ul>
                                     </div>
 
-                                    <button type="button" onclick="copy()">Copy</button>
-
                                 </div>
                             </div>
                             <div class="row">

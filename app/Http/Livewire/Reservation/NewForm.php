@@ -150,9 +150,9 @@ class NewForm extends Component
         $this->emit('updateBill');
         $reservation->customer->updateCustomerCountReservationFinish();
 
-        /*$msg = WAHelper::msgBuilder($reservation);
+        $msg = WAHelper::msgBuilder($reservation);
         $wa = WAHelper::send($reservation->customer->phone, $msg);
-        activity('reservation_log')->performedOn($reservation)->causedBy(Auth::user())->log('Whatasapp'.$wa);*/
+        activity('reservation_log')->performedOn($reservation)->causedBy(Auth::user())->log('Whatasapp'.$wa);
     }
 
     public function save()
