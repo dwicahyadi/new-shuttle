@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect(\route('home'));
 });
-
+Route::get('self_print/{reservation}',[\App\Http\Controllers\PrintController::class,'selfPrintTicket'])->name('self_print');
 Auth::routes();
 
 Route::middleware(['auth'])->group(function (){

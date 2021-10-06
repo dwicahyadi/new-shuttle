@@ -46,4 +46,10 @@ class PrintController extends Controller
     {
         return view('prints.package', ['package'=>$package]);
     }
+
+    public function selfPrintTicket(Reservation $reservation)
+    {
+        return view('prints.ticket',['reservation'=>$reservation]);
+    }
+
 }
