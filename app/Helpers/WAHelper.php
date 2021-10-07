@@ -34,7 +34,7 @@ class WAHelper
         }
 
         $text .= "Tiket dapat dilihat di ".route('self_print',['reservation'=>$reservation])."\n\n";
-        $text .= "NB: Jangan balas pesan ini. Untuk informasi silakan hubungi WA CS. wa.me/6287720207999";
+        $text .= "NB: Jangan balas pesan ini. Untuk informasi silakan hubungi WA CS. wa.me/6287721217999";
 
         return  $text;
     }

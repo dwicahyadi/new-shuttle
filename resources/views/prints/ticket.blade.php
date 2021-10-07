@@ -73,7 +73,7 @@
                 <h3>Belum Lunas</h3>
             @endif
             <hr>
-            <img src="{{ asset('images/whatsapp.svg') }}" alt="wa" width="16">&nbsp;0877 2020 7999<br>
+            <img src="{{ asset('images/whatsapp.svg') }}" alt="wa" width="16">&nbsp;0877 2121 7999<br>
 {{--            <img src="{{ asset('images/instagram-sketched.svg') }}" alt="wa" width="16">&nbsp;@suryashuttle--}}
         </div>
     </div>
