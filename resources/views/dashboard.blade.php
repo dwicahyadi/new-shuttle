@@ -2,6 +2,33 @@
 
 @section('content')
 <div class="container mt-t">
+    <br>
+    <div class="row">
+        <div class="col-sm-6 mb-4 mb-xl-0">
+            <div class="d-lg-flex align-items-center">
+                <div>
+                    <h3 class="text-dark font-weight-bold mb-2">Dashboard</h3>
+                    <form method="get" class="d-flex">
+                        @php($month = $_GET['month'] ?? date('m'))
+                        @php($year = $_GET['year'] ?? date('Y'))
+                        <select name="month" class="form-control">
+                            @for($i = 1; $i <= 12; $i++)
+                                <option @if($month == $i) selected @endif value="{{ $i }}">{{ date('F', mktime(0, 0, 0, $i, 1)) }}</option>
+                            @endfor
+                        </select>
+                        <select name="year" class="form-control">
+                            @for($i = date('Y'); $i >= date('Y')-3; $i--)
+                                <option @if($year == $i) selected @endif value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+
+                        <button type="submit" class="mx-4 btn btn-primary")>Tampilkan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- List group -->
     <div class="nav nav-pills mt-4" id="myList" role="tablist">
         <a class="nav-link active" data-toggle="list" href="#tickets" role="tab">Dashboard Penumpang</a>
@@ -15,39 +42,8 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div class="tab-pane fade show active" id="tickets" role="tabpanel">
-            <div class="row mt-2">
-                <div class="col-md-3">
-                    <div class="card">
-                        <card class="card-body">
-                            <strong class="card-title">Penumpang Bulan Berjalan</strong>
-                        </card>
-                    </div>
-                </div>
+            @livewire('dashboard.customer-stat',['month'=>$month, 'year'=>$year])
 
-                <div class="col-md-3">
-                    <div class="card">
-                        <card class="card-body">
-                            <strong class="card-title">Penumpang Baru</strong>
-                        </card>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card">
-                        <card class="card-body">
-                            <strong class="card-title">Pelanggan Setia</strong>
-                        </card>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card">
-                        <card class="card-body">
-                            <strong class="card-title">Semua Penumpang</strong>
-                        </card>
-                    </div>
-                </div>
-            </div>
             <div class="row mt-2">
                 <div class="col-md-12">
                     <div class="card">

@@ -22,6 +22,8 @@ Auth::routes();
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+    Route::view('/profile', 'profile')->name('profile');
+
     Route::prefix('master')->group(function (){
         Route::name('master.')->group(function (){
             Route::name('car.')->group(function (){

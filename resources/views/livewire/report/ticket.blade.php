@@ -92,7 +92,7 @@
                                 <td>{{ $row->status }}</td>
                                 <td>{{ $row->reservation_by }}</td>
                                 <td>{{ $row->payment_by }}</td>
-                                <td>{{ $row->settlemnt_id ? 'Sudah' : 'Belum' }}</td>
+                                <td>{{ $row->settlement_id }}</td>
                                 <td align="center">
                                     <a href="{{ route('print.settlement', ['settlement'=>$row]) }}" target="_blank">Cetak</a>
                                 </td>

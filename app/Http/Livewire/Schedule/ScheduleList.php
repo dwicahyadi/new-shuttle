@@ -21,7 +21,7 @@ class ScheduleList extends Component
     public function findDepartures($date, $departurePointId, $arrivalPointId)
     {
         $this->selectedId = 0;
-        $this->departures = Departure::with(['schedule'])->whereDate('date', $date)
+        $this->departures = Departure::with(['schedule'])->withCount('tickets')->whereDate('date', $date)
             ->where('arrival_point_id', $arrivalPointId)
             ->where('departure_point_id', $departurePointId)
             ->orderBy('time','asc')

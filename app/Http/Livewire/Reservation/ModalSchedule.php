@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class ModalSchedule extends Component
 {
-    public array $listCosts = [0,230000,710000];
+    public array $listCosts = [0,660000,680000];
     public Collection $cars;
     public Collection $drivers;
     public ?Schedule $schedule;
