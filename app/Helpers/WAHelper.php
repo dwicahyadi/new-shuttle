@@ -36,6 +36,19 @@ class WAHelper
         $text .= "Tiket dapat dilihat di ".route('self_print',['reservation'=>$reservation])."\n\n";
         $text .= "NB: Jangan balas pesan ini. Untuk informasi silakan hubungi WA CS. wa.me/6287721217999";
 
+        $text .= "\n\n\"Bantu Kami Menjadi Lebih Baik\"";
+        $text .= "\n\nJika Pengemudi Kami :";
+        $text .= "\n1. Lewat bahu jalan tol";
+        $text .= "\n2. Melebihi kecepatan 120 Km/jam";
+        $text .= "\n3. Pindah lajur tanpa sein / zigzag";
+        $text .= "\n4. Jarak dengan kendaraan lain terlalu dekat";
+        $text .= "\n5. Menggunakan HP saat mengemudi";
+        $text .= "\n6. Menelepon lebih dari 1 menit";
+        $text .= "\n7. Menaikan penumpang di tengah perjalanan";
+        $text .= "\n8. Tidak sopan dan kurang ramah";
+        $text .= "\n\nMohon Whatsapp ke :";
+        $text .= "\nwa.me/6282219437555";
+
         return  $text;
     }
 
