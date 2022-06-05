@@ -33,7 +33,7 @@
                             <span>Update Schedule</span>
                         </button>
                         <button type="button" class="mb-2 btn btn-primary"
-                                onclick="if (window.confirm('Yakin cetak manifest untuk point {{ \Illuminate\Support\Facades\Auth::user()->point->name }}')) window.open('{{ route('print.manifest', ['schedule'=> $departure->schedule->id ?? 0]) }}', '', 'width=500,height=500')">
+                                onclick="if (window.confirm('Yakin cetak manifest untuk point {{ \Illuminate\Support\Facades\Auth::user()->point->name ?? 'Point' }}')) window.open('{{ route('print.manifest', ['schedule'=> $departure->schedule->id ?? 0]) }}', '', 'width=500,height=500')">
                             Cetak Manifest
                         </button>
                     </div>
