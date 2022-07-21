@@ -1,7 +1,7 @@
 @extends('layouts.app_bu')
 
 @section('content')
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-sm-6 mb-4 mb-xl-0">
                 <div class="d-lg-flex align-items-center">

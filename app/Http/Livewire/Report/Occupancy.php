@@ -12,16 +12,42 @@ class Occupancy extends Component
 
     protected $updatesQueryString = ['point', 'date'];
 
-    public function mount()
-    {
-        $this->cities = City::with(['points'])->get();
-        $this->date = request('date') ?? date('Y-m-d');
-        $this->end_date = request('end_date') ?? date('Y-m-d');
-        $this->point = request('point');
-    }
+
     public function render()
     {
-        $report = ReportHelper::ocupancy($this->point, $this->date, $this->end_date);
-        return view('livewire.report.occupancy',['report'=>$report]);
+        $from_date = request('from_date') ?? now()->format('Y-m-d');
+        $to_date = request('to_date') ?? now()->format('Y-m-d');
+        $departure_point_id = request('departure_point_id');
+        $arrival_point_id = request('arrival_point_id');
+
+        $builder = \DB::table('tickets')
+            ->join('departures','tickets.departure_id','=','departures.id','left')
+            ->join('schedules','departures.schedule_id','=','schedules.id','left')
+            ->join('points as departure_point','departures.departure_point_id','=','departure_point.id','left')
+            ->join('points as arrival_point','departures.arrival_point_id','=','arrival_point.id','left')
+            ->select(
+                'departures.*','departure_point.name as from_point',
+                'arrival_point.name as to_point',
+                \DB::raw('count(tickets.id) as tickets_count'),
+                \DB::raw('schedules.seats as seat_open'),
+                \DB::raw('count(tickets.id) / sum(schedules.seats) as occupancy'),
+            )
+            ->groupBy('departures.id')
+            ->where('tickets.status','=','paid')
+            ->orderBy('departures.date','asc')
+            ->whereBetween('tickets.date',[$from_date, $to_date]);
+
+        $builder->when($departure_point_id, function ($q) use ($departure_point_id) {
+            $q->where('departures.departure_point_id','=',$departure_point_id);
+        });
+
+        $builder->when($arrival_point_id, function ($q) use ($arrival_point_id) {
+            $q->where('departures.arrival_point_id','=',$arrival_point_id);
+        });
+
+        $data = $builder->paginate();
+        $i = $data->firstItem();
+
+        return view('livewire.report.occupancy', compact('data','i'));
     }
 }

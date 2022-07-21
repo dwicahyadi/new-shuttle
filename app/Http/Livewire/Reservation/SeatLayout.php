@@ -31,15 +31,23 @@ class SeatLayout extends Component
     {
         if (isset($this->departure))
         {
-            $this->seats = $this->departure->tickets->keyBy('seat');
+            $this->seats = $this->departure->schedule->tickets->keyBy('seat');
+            if ($this->departure->schedule->seats  == 8)
+                return view('livewire.reservation.8-seats-layout');
         }
 
         return view('livewire.reservation.seat-layout');
+
     }
 
     public function setDeparture(Departure $departure)
     {
         $this->departure = $departure;
+    }
+
+    public function unsetDeparture()
+    {
+        $this->departure = null;
     }
 
 }

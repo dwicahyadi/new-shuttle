@@ -1,12 +1,13 @@
 <div>
-    <div class="border p-2 rounded shadow-sm"
+
+    <div class="border p-2 rounded shadow-sm con"
          @if($ticket->status == 'paid') style="background-color: #D4FFEB" @endif
 
     >
         @if($isEdit)
             @livewire('reservation.edit-ticket-form',['ticket'=>$ticket,], key("editTicket.{$ticket->id}"))
         @else
-            <div class="seat-card">
+            <div class="@if($ticket->departure_point_id != $currentPontId)) other-seat-card @else seat-card @endif">
 
                 <div class="d-flex">
                     <div>
@@ -25,33 +26,37 @@
                             <span class="badge badge-dark text-white border-light" title="Multiroute">MR</span>
                         @endif
 
-                            @if($ticket->status == 'paid') <span class="badge badge-warning border-light p-1" title="Lunas">Lunas</span> @endif
+                            @if(!$ticket->count_print && $ticket->status == 'paid' )
+                                <button class="btn btn-outline-dark btn-sm" onclick="window.open('{{ route('print.ticket', ['reservationId'=> $ticket->reservation_id]) }}', '', 'width=500,height=500')"><i class="fa fa-print"></i></button>
+                            @endif
+
+                            @if(!$ticket->checked_in && $ticket->status == 'paid' )
+                                <button class="btn btn-outline-success btn-sm" onclick="confirm('Penumpang sudah datang?') || event.stopImmediatePropagation()" wire:click="checkIn"><i class="fa fa-check"></i></button>
+                            @endif
+
+                            @if($ticket->status == 'unpaid' )
+                                <button class="btn btn-outline-info btn-sm" wire:click="toggleEdit"><i class="fa fa-edit"></i></button>
+                                <button class="btn btn-outline-danger btn-sm" onclick="confirm('Yakin batalkan tiket ini?') || event.stopImmediatePropagation()" wire:click="cancelTicket"><i class="fa fa-times"></i></button>
+                            @endif
                     </div>
-                </div>
-                <div class="text-center">
-                    <small>{{ $ticket->phone }}</small><br>
-                    {{ $ticket->name }}<br>
-                    <small class="">{{ $ticket->departure_point->name ?? 'point_name' }}</small>
                 </div>
 
-                <div class="button-holder">
-                    <div class="d-flex mt-4">
-                        <button class="btn btn-primary btn-sm flex-fill"
-                                data-toggle="modal" data-target="#ResevationDetail" data-backdrop="static"
-                                wire:click="$emit('getReservation',{{ $ticket->reservation_id }})"
-                        >
-                            Tampilkan
-                        </button>
-                        @if($ticket->status == 'paid')
-                            <button class="btn btn-outline-dark btn-sm" onclick="window.open('{{ route('print.ticket', ['reservationId'=> $ticket->reservation_id]) }}', '', 'width=500,height=500')"><i class="fa fa-print"></i></button>
-                        @else
-                            <button class="btn btn-outline-dark btn-sm" wire:click="toggleEdit"><i class="fa fa-edit"></i></button>
-                            <button class="btn btn-outline-danger btn-sm" onclick="confirm('Yakin batalkan tiket ini?') || event.stopImmediatePropagation()" wire:click="cancelTicket"><i class="fa fa-times"></i></button>
-                        @endif
-                    </div>
-                </div>
+
+
             </div>
-        @endif
+            <div class="button-holder">
+                <a href="void()" data-toggle="modal" data-target="#ResevationDetail" data-backdrop="static"
+                   wire:click="$emit('getReservation',{{ $ticket->reservation_id }})">
+                    <div class="text-center">
+                        <small class="clearfix">{{ $ticket->phone }}</small>
+                        <span class="clearfix">{{ $ticket->name }}</span>
+                        <small class="clearfix">{{ $ticket->departure_point->name ?? 'point_name' }}</small>
+                    </div>
+                </a>
 
+            </div>
+
+        @endif
     </div>
+
 </div>

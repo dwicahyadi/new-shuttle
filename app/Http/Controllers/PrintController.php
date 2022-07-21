@@ -16,8 +16,8 @@ class PrintController extends Controller
         $reservation = Reservation::with('tickets')->find( $reservationId);
         if($reservation->tickets[0]->count_print > 0)
         {
-            if(!Auth::user()->can('Re-print'))
-                return 'You dont have permission to perform this action!';
+//            if(!Auth::user()->can('Re-print'))
+//                return 'You dont have permission to perform this action!';
         }
         $reservation->tickets()->update(['count_print' => \Illuminate\Support\Facades\DB::raw('count_print+1')]);
         return view('prints.ticket',['reservation'=>$reservation]);

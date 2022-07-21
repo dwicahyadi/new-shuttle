@@ -5,15 +5,6 @@
                 <h4>Paket Baru</h4>
                 <form onsubmit="return false">
                     <div class="form-group">
-                        <label> Point</label>
-                        <select class="form-control form-control-sm" wire:model="departure_point_id">
-                            @php($points = $departure->city->points ?? $departure->departure_point->city->points)
-                            @foreach($points as $point)
-                                <option value="{{ $point->id }}">{{ $point->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label> Pengirim</label>
                         <input type="text" wire:model="sender_name" placeholder="nomor pengeirim" class="form-control form-control-sm mb-2" required>
                         <input type="text" wire:model="sender_phone" placeholder="nama pengeirim" class="form-control form-control-sm mb-2" required>

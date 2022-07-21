@@ -16,4 +16,14 @@ class Point extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class,'departure_point_id');
+    }
+
+    public function trips()
+    {
+        return $this->hasMany(Departure::class,'departure_point_id');
+    }
 }

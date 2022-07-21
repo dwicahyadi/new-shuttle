@@ -11,6 +11,7 @@ class FilledSeat extends Component
     public int $seatNumber;
     public bool $isEdit = false;
     public Ticket $ticket;
+    public int $currentPontId;
 
     protected $listeners = [
         'reload',
@@ -38,6 +39,21 @@ class FilledSeat extends Component
         $this->ticket->save();
         activity('reservation_log')->performedOn($this->ticket->reservation)->causedBy(Auth::user())->log('cancel ticket seat '.$this->seatNumber);
         $this->emit('reservationSaved');
+
+    }
+
+    public function checkIn()
+    {
+        $this->ticket->checked_in = true;
+        $this->ticket->save();
+        activity('reservation_log')->performedOn($this->ticket->reservation)->causedBy(Auth::user())->log('customer checkin '.$this->seatNumber);
+        $this->emit('reservationSaved');
+
+        $this->dispatchBrowserEvent(
+            'alert', [
+            'title' => 'Resevasi',
+            'msg' => 'Penumpang berhasil chekin',
+            'icon' => 'success']);
 
     }
 

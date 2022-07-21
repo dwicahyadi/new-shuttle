@@ -1,47 +1,26 @@
 <div>
     @if($departure)
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="mr-4">
-                        <span>{{ $departure->date ?? 'tanggal' }}</span>
-                        <h1>{{ substr($departure->time ?? 'jam',0,5) }}</h1>
-                    </div>
-                    <div class="flex-fill mr-4">
-                        <small>Keberangaktan</small><br>
-                        <strong>{{ $departure->departure_point->name ?? "asal" }}</strong><br>
-                        <br>
-                        <small>Tujuan</small><br>
-                        <strong>{{ $departure->arrival_point->name ?? "tujuan" }}</strong>
-                    </div>
-                    <div class="flex-fill mr-4">
-                        <small>Mobil</small><br>
-                        <strong>{{ $departure->schedule->car->code ?? "mobil" }}</strong>
-                        <br>
-                        <small>Sopir</small><br>
-                        <strong>{{ $departure->schedule->driver->name ?? "Sopir" }}</strong>
+        <h2>
+            {{ $departure->departure_point->name ?? "asal" }} - {{ $departure->arrival_point->name ?? "tujuan" }} |
+            {{ $departure->date ?? 'tanggal' }} {{ substr($departure->time ?? 'jam',0,5) }}
+        </h2>
+        <a class="text-info my-4" data-toggle="modal" data-target="#ScheduleDetail" data-backdrop="static"
+           wire:click="$emit('getSchedule',{{ $departure->schedule_id }})">
+            <i class="fa fa-edit"></i>
+            {{ $departure->schedule->car->code ?? "[Mobil belm dipilih]" }} |
+            {{ $departure->schedule->driver->name ?? "[Sopir belum dipilih]" }} |
+            BOP Rp.{{ number_format($departure->schedule->costs ?? 0) }}
+        </a> |
+        <a class=""
+                     onclick="if (window.confirm('Yakin cetak manifest untuk point {{ \Illuminate\Support\Facades\Auth::user()->point->name ?? 'Point' }}')) window.open('{{ route('print.manifest', ['schedule'=> $departure->schedule->id ?? 0]) }}', '', 'width=500,height=500')">
+            <i class="fa fa-print"></i> Cetak Manifest
+        </a>
 
-                        <br>
-                        <small>BOP</small><br>
-                        <strong>{{ number_format($departure->schedule->costs ?? 0) }}</strong>
-                    </div>
-                    <div class="p-2 border-left border-light">
-                        <button class="mb-2 btn btn-info"
-                                data-toggle="modal" data-target="#ScheduleDetail" data-backdrop="static"
-                                wire:click="$emit('getSchedule',{{ $departure->schedule_id }})"
-                        >
-                            <span>Update Schedule</span>
-                        </button>
-                        <button type="button" class="mb-2 btn btn-primary"
-                                onclick="if (window.confirm('Yakin cetak manifest untuk point {{ \Illuminate\Support\Facades\Auth::user()->point->name ?? 'Point' }}')) window.open('{{ route('print.manifest', ['schedule'=> $departure->schedule->id ?? 0]) }}', '', 'width=500,height=500')">
-                            Cetak Manifest
-                        </button>
-                    </div>
-                </div>
-
-
+        @if($departure->get_time_diff()->isPast())
+            <div class="alert alert-danger mt-2">
+                <h5>Batas waktu reservasi sudah lewat!</h5>
             </div>
-        </div>
+        @endif
 
         <ul class="nav nav-pills my-4" id="midSide" role="tablist">
             <li class="nav-item">
@@ -56,5 +35,7 @@
                 </a>
             </li>
         </ul>
+    @else
+        <img src="{{ asset('images/customer_waiting.png') }}" alt="">
     @endif
 </div>

@@ -42,4 +42,5 @@ class Package extends Model
     {
         return $this->belongsTo(User::class,'payment_by');
     }
+
 }

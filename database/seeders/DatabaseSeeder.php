@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -68,8 +71,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Discount::create(['code'=>'OPN','name'=>'Promo Opening','amount'=>20000,'active'=>true]);
         \App\Models\Discount::create(['code'=>'MHS','name'=>'Promo Mahasiswa','amount'=>10000,'active'=>true]);
 
-        /*user demo*/
-        \App\Models\User::create(['name'=>'Demo Akun','email'=>'demo@demo.com', 'password'=>bcrypt('password')]);
 
         /*Roles*/
         \Spatie\Permission\Models\Role::create(['name'=>'MASTER', 'guard_name'=>'web']);
@@ -84,8 +85,19 @@ class DatabaseSeeder extends Seeder
         \Spatie\Permission\Models\Permission::create(['name'=>'Discount', 'guard_name'=>'web']);
         \Spatie\Permission\Models\Permission::create(['name'=>'Schedule', 'guard_name'=>'web']);
         \Spatie\Permission\Models\Permission::create(['name'=>'Reservation', 'guard_name'=>'web']);
+        \Spatie\Permission\Models\Permission::create(['name'=>'Re-print', 'guard_name'=>'web']);
+        \Spatie\Permission\Models\Permission::create(['name'=>'Cancel Payment', 'guard_name'=>'web']);
         \Spatie\Permission\Models\Permission::create(['name'=>'Customer', 'guard_name'=>'web']);
         \Spatie\Permission\Models\Permission::create(['name'=>'User', 'guard_name'=>'web']);
         \Spatie\Permission\Models\Permission::create(['name'=>'Setting', 'guard_name'=>'web']);
+
+        /*user demo*/
+        \App\Models\User::create(['name'=>'Demo Akun','email'=>'super@super.com', 'password'=>bcrypt('password')]);
+
+        $admin = User::find(1);
+        $admin->assignRole('Master');
+
+        $role = Role::find('1');
+        $role->syncPermissions(Permission::all());
     }
 }

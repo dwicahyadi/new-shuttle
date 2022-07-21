@@ -58,6 +58,12 @@ class CustomerSearchForm extends Component
         $customer->count_reservation = $customer->count_reservation + 0;
         $customer->save();
 
+        $this->dispatchBrowserEvent(
+            'alert', [
+                'title' => 'Sukses',
+                'msg' => 'Konsumen Baru Disimpan',
+                'icon' => 'success']);
+
         $this->setCustomer();
 
     }

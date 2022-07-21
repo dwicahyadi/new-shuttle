@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}" />
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -20,23 +22,41 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        .clickable{
-            cursor: pointer;
+        .empty-seat-card{
+            background-image: url('{{ asset('images/icons/seat.svg') }}');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            min-height: 10rem;
         }
 
         .seat-card{
-        cursor: pointer;
+            background-image: url('{{ asset('images/icons/user.png') }}');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            min-height: 6rem;
         }
 
+        .other-seat-card{
+            background-image: url('{{ asset('images/icons/terminal.svg') }}');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            min-height: 6rem;
+        }
     </style>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @livewireStyles
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('images/logo_go_square.png') }}" alt="logo" class="d-none d-lg-block d-xl-none" style="height: 48px">
+                    <img src="{{ asset('images/logo_go_1.png') }}" alt="logo" class="d-lg-none d-xl-block">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -47,74 +67,7 @@
                     @guest()
 
                     @else
-                        <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">Beranda</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="masterMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Master
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="masterMenu">
-                                <a class="dropdown-item" href="{{ route('master.car.index') }}">Mobil</a>
-                                <a class="dropdown-item" href="{{ route('master.customer.index') }}">Pelanggan</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="scheduleMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Jadwal
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="scheduleMenu">
-                                <a class="dropdown-item" href="{{ route('schedule.create') }}">Buka Jadwal</a>
-                                <a class="dropdown-item" href="{{ route('schedule.manage') }}">Kelola Jadwal</a>
-                            </div>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('reservation') }}">Reservasi</a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="historyMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Riwayat
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="historyMenu">
-                                <a class="dropdown-item" href="{{ route('history.settlement') }}">Settlement</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="financeMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Keuangan
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="financeMenu">
-                                <a class="dropdown-item" href="{{ route('finance.ledger') }}">Buku Besar</a>
-                                <a class="dropdown-item" href="{{ route('finance.income') }}">Input Pemasukan</a>
-                                <a class="dropdown-item" href="{{ route('finance.expense') }}">Input Biaya</a>
-                            </div>
-                        </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="reportMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Laporan
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="reportMenu">
-                                    <a class="dropdown-item" href="{{ route('report.ticket') }}">Penjualan Tiket</a>
-                                    <a class="dropdown-item" href="{{ route('report.package') }}">Penjualan Paket</a>
-                                    <a class="dropdown-item" href="{{ route('report.income_statement') }}">Pendapatan</a>
-                                    <a class="dropdown-item" href="{{ route('report.occupancy') }}">Okupansi</a>
-                                    <a class="dropdown-item" href="{{ route('report.settlement') }}">Settlement</a>
-                                    <a class="dropdown-item" href="{{ route('report.operational_cost') }}">BOP</a>
-                                </div>
-                            </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Pengaturan</a>
-                        </li>
-
-                    </ul>
+                        @include('layouts.menus')
                     @endguest
 
                     <!-- Right Side Of Navbar -->
@@ -170,5 +123,15 @@
         </main>
     </div>
     @livewireScripts
+
+    <script>
+        window.addEventListener('alert', event => {
+            Swal.fire({
+                title: event.detail.title,
+                text: event.detail.msg,
+                icon: event.detail.icon,
+            })
+        })
+    </script>
 </body>
 </html>

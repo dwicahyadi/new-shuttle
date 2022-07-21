@@ -1,5 +1,5 @@
 <div>
-    <ul class="list-group p-0 list-group-flush">
+    <ul class="list-group p-0 list-group-flush ">
         @forelse($departures as $departure)
             @if($onlyFilled)
                 @continue(!$departure->tickets_count)
@@ -11,15 +11,17 @@
                         <i class="mdi mdi-clock-outline mdi-24px"></i>
                     </div>
                     <div class="flex-fill">
-                        <strong class="clearfix">{{ substr($departure->time, 0,5) }}</strong>
+                        <small>{{ $departure->date }} {{ $departure->time }}</small><br>
+                        <small>{{ $departure->departure_point->city->name }} {{ $departure->departure_point->name }}</small> -
+                        <small>{{ $departure->arrival_point->city->name }} {{ $departure->arrival_point->name }}</small>
                     </div>
                     <div>
-                        @livewire('partial.seat-count-badge',['departureId'=>$departure->id], key('seatBadge'.$departure->id))
+                        @livewire('partial.seat-count-badge',['departure'=>$departure], key('seatBadge'.$departure->id))
                     </div>
                 </div>
             </li>
         @empty
-            <h4>Tidak ada keberangaktan</h4>
+            <h4 class="m-2">Tidak ada keberangaktan</h4>
         @endforelse
     </ul>
 </div>

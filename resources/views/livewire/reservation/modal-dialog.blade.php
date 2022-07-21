@@ -59,7 +59,7 @@
                                     <div id="canvas">
                                         <ul class="list-group" id="tickets">
                                             @forelse($reservation->tickets as $ticket)
-                                                <li class="list-group-item d-flex align-items-center     ">
+                                                <li class="list-group-item d-flex align-items-center">
                                                     <div class="mr-2">
                                                         <small class="clearfix">Seat {{ $ticket->seat }}</small>
                                                         <img
@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 text-right">
+                                <div class="col-md-12 text-right mt-4">
                                     @if($reservation->tickets[0]->status == 'paid')
                                         <button class="btn btn-primary" onclick="window.open('{{ route('print.ticket', ['reservationId'=> $reservation->id]) }}', '', 'width=500,height=500')">
                                             Cetak Tiket

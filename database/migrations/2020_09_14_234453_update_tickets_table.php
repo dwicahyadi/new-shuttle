@@ -15,10 +15,12 @@ class UpdateTicketsTable extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->unsignedBigInteger('departure_point_id')->nullable();
+            $table->boolean('checked_in')->default(false);
         });
         Schema::table('reservations', function (Blueprint $table) {
             $table->string('note')->nullable();
         });
+
     }
 
     /**
@@ -30,6 +32,7 @@ class UpdateTicketsTable extends Migration
     {
         Schema::table('tickets', function (Blueprint $table) {
             $table->dropColumn('departure_point_id');
+            $table->dropColumn('checked_in');
         });
         Schema::table('reservations', function (Blueprint $table) {
             $table->dropColumn('note');

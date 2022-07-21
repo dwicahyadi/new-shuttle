@@ -42,6 +42,15 @@ Route::middleware(['auth'])->group(function (){
                     return view('master.customer.show',compact('customer'));
                 })->name('show');
             });
+
+            Route::name('discount.')->group(function () {
+                Route::view('discount','master.discount.index')->name('index');
+            });
+
+            Route::name('permissions.')->group(function () {
+                Route::view('permissions','master.permissions.index')->name('index');
+            });
+
         });
     });
 
@@ -75,11 +84,15 @@ Route::middleware(['auth'])->group(function (){
     });
 
     Route::name('report.')->group(function (){
-        Route::view('report/ticket','report.tickets')->name('ticket');
-        Route::view('report/package','report.package')->name('package');
         Route::view('report/income_statement','report.income')->name('income_statement');
         Route::view('report/settlement','report.settlement')->name('settlement');
         Route::view('report/occupancy','report.occupancy')->name('occupancy');
         Route::view('report/operational_costs','report.operational_cost')->name('operational_cost');
+
+        Route::view('report/per_point','report.per_point')->name('per_point');
+        Route::view('report/per_route','report.per_route')->name('per-route');
+        Route::view('report/ticket_detail','report.ticket_detail')->name('ticket-detail');
+
+        Route::view('report/package_detail','report.package_detail')->name('package-detail');
     });
 });

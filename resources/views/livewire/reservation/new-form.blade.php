@@ -1,8 +1,8 @@
 <div>
-    @if($departure)
+    @if($departure && !$departure->get_time_diff()->isPast())
         <div class="card grid-margin mb-2">
             <div class="card-body">
-                <h4 class="card-title mb-2">Data Pemersan</h4>
+                <h4 class="card-title mb-2">Data Pemesan</h4>
                 @livewire('reservation.customer-search-form')
             </div>
         </div>
@@ -12,7 +12,7 @@
                     <h4 class="card-title mb-2">Reservasi Baru</h4>
                     <form action="">
                         @csrf
-                        <div class="form-group">
+                        {{--<div class="form-group">
                             <label>Point Keberangakatan</label>
                             <select class="form-control form-control-sm" wire:model="ticketDeparturePointId">
                                 @php($points = $departure->city->points ?? $departure->departure_point->city->points)
@@ -20,8 +20,8 @@
                                     <option value="{{ $point->id }}">{{ $point->name }}</option>
                                 @endforeach
                             </select>
-                            <label class="my-2"><input type="checkbox" wire:model="isMultiRoute"> Penumpang Multiroute</label>
-                        </div>
+--}}{{--                            <label class="my-2"><input type="checkbox" wire:model="isMultiRoute"> Penumpang Multiroute</label>--}}{{--
+                        </div>--}}
 
                         <div class="form-group">
                             <label>Tiket</label>
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             @empty
-                                <span>Pilih dulu</span>
+                                <span>Pilih Kursi terlebih dahulu</span>
                             @endforelse
                         </div>
 

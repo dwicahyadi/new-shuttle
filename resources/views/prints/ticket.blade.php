@@ -26,14 +26,12 @@
 @forelse($reservation->tickets as $ticket)
     <div style="width: 300px; page-break-before: always">
         <div style="text-align: center; margin-top: 5px">
-{{--            <img src="{{ asset('images/logo bw.png') }}" alt="logo" width="120">--}}
-            <h2>{{ config('app.name', 'Shuttle') }}</h2>
+            <img src="{{ asset('images/logo_go_2.png') }}" alt="logo" width="200px"><br>
+            <hr>
+            <small>{{ $ticket->departure->code.'-'.$ticket->seat }}</small>
+            <hr>
         </div>
         <br>
-        <div>
-            <small>No. Tiket</small><br>
-            <strong>{{ $ticket->departure->code.'-'.$ticket->seat }}</strong>
-        </div>
         <div>
             <small>Tanggal / Jam Kbrgktn</small><br>
             <strong>{{ $ticket->departure->date }} / {{ substr($ticket->departure->time,0,5) }}</strong>
@@ -75,6 +73,8 @@
             <hr>
             <img src="{{ asset('images/whatsapp.svg') }}" alt="wa" width="16">&nbsp;0877 2121 7999<br>
 {{--            <img src="{{ asset('images/instagram-sketched.svg') }}" alt="wa" width="16">&nbsp;@suryashuttle--}}
+            <br>
+            <small>{{ now() }} dicetak oleh {{ auth()->user()->name }}</small>
         </div>
     </div>
 @empty

@@ -56,12 +56,18 @@ class Departure extends Model
 
     public function getDateAttribute($value)
     {
-        return Carbon::parse($value)->format('d M Y');
+        return Carbon::parse($value)->translatedFormat('l, d M Y');
     }
 
     public function getTimeAttribute($value)
     {
         return Str::substr($value, 0,5);
+    }
+
+    public function get_time_diff($minute = 15)
+    {
+        $time = Carbon::createFromLocaleFormat('l, d M Y H:i','id',$this->date." ".$this->time);
+        return $time->addMinutes($minute);
     }
 
 

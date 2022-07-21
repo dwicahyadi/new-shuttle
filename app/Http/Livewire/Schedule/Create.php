@@ -15,6 +15,13 @@ class Create extends Component
     public $departurePoint, $arrivalPoint;
     public $newHour, $newMinute;
     public $departureTimes = [];
+    public $is_add = false;
+    public $departurePointList;
+
+    public function mount()
+    {
+
+    }
 
     public function render()
     {
@@ -35,18 +42,28 @@ class Create extends Component
 
     public function setDeparturePoint()
     {
-        $this->departurePoint = Point::with('city')->find($this->departurePointId);
+//        $this->departurePoint = Point::with('city')->find($this->departurePointId);
     }
     public function setArrivalPoint()
     {
         $this->arrivalPoint = Point::with('city')->find($this->arrivalPointId);
+        $this->departurePointList = Point::where('city_id','!=', $this->arrivalPointId)->get();
     }
 
     public function addDepartureTime()
     {
         $newDepartureTime = $this->createTime();
-        array_push($this->departureTimes,$newDepartureTime);
-        $this->departureTimes = array_unique($this->departureTimes);
+        $point = $this->departurePointList->where('id', $this->departurePointId)->first();
+
+        $this->departureTimes[$this->departurePointId] = [
+            'departure_point_id' => $point->id,
+            'departure_point_code' => $point->code,
+            'point_name' => $point->name,
+            'time' => $newDepartureTime,
+        ];
+
+        $this->is_add = false;
+
     }
 
     public function removeDepartureTime($key)
@@ -60,25 +77,25 @@ class Create extends Component
 
         while (strtotime($currentDate) <= strtotime($this->toDate)) {
 
+            $schedule = new Schedule();
+            $schedule->seats = $this->seats;
+            $schedule->save();
 
-            foreach ($this->departureTimes as $departureTime)
+            foreach ($this->departureTimes as $key => $departureTime)
             {
-                $schedule = new Schedule();
-                $schedule->seats = $this->seats;
-                $schedule->save();
-
-                $code = $this->departurePoint->code
-                    .$this->arrivalPoint->code
+                $code = $schedule->id." "
+                    .$departureTime['departure_point_code']."-"
+                    .$this->arrivalPoint->code." "
                     .date('ymd',strtotime($currentDate))
-                    .str_replace(':','',$departureTime)
-                    .$schedule->id;
+                    .str_replace(':','',$departureTime['time']);
+
 
                 $schedule->departures()->create([
                     'code' => $code,
                     'date' => $currentDate,
-                    'time' => $departureTime,
+                    'time' => $departureTime['time'],
                     'arrival_point_id' => $this->arrivalPointId,
-                    'departure_point_id' => $this->departurePointId,
+                    'departure_point_id' => $departureTime['departure_point_id'],
                     'price' =>$this->price,
                     'status' => 'available',
                     'is_open' => true

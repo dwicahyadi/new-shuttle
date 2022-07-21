@@ -5,7 +5,7 @@
                 <li class="list-group-item">
                     <div class="d-flex align-items-center">
                         <div class="p-2">
-                            <i class="fa fa-gifts fa-3x text-primary"></i>
+                            <img src="{{ asset('images/icons/box.svg') }}" alt="box" width="64px">
                         </div>
                         <div class="p-2 flex-fill">
                             <span class="text-info clearfix">{{ $package->departure_point->name ?? '' }}</span>
@@ -33,7 +33,10 @@
 
                 </li>
             @empty
-
+                <div class="text-center p-4 text-muted">
+                    <img src="{{ asset('images/icons/box.svg') }}" alt="box" class="w-25 mt-4 text-muted">
+                    <h4>Tidak ada paket...</h4>
+                </div>
             @endforelse
         </ul>
     @endif()

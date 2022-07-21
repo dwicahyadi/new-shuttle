@@ -12,7 +12,7 @@
                        name="phone"
                        list="customers"
                        id="customer"
-                       class="form-control form-control-sm" placeholder="ketik kemudian Enter" autocomplete="off">
+                       class="form-control form-control-sm" placeholder="ketik nomor kemudian Enter" autocomplete="off">
                 @if($suggestCustomers)
                     <datalist id="customers">
                         @foreach($suggestCustomers as $suggest)
@@ -23,13 +23,11 @@
             </div>
 
             <div class="form-group">
-                <label>Nama</label>
-                <input wire:model="name" type="text" name="name" class="form-control form-control-sm" autocomplete="off">
+                <input wire:model="name" type="text" name="name" class="form-control form-control-sm" autocomplete="off" placeholder="Nama">
             </div>
 
             <div class="form-group">
-                <label>Alamat</label>
-                <input wire:model="address" type="text" name="name" class="form-control form-control-sm" autocomplete="off">
+                <input wire:model="address" type="text" name="name" class="form-control form-control-sm" autocomplete="off" placeholder="Alamat">
             </div>
 
             <div class="form-group text-right">
@@ -38,14 +36,7 @@
         </form>
     @else
 
-        @if($customer->member)
-            <div class="alert alert-info text-center">
-                <i class="fa fa-crown"></i> Pelanggan Setia
-                {{ $customer->tickets_count }}
-            </div>
-        @else
-            <p>Saat ini sudah {{ $customer->tickets_count }} Tiket</p>
-        @endif
+
         <div class="mb-2">
             <span>Nomor Handphone</span><br>
             <strong>{{ $customer->phone }}</strong>
@@ -54,7 +45,14 @@
             <span>Nama Pemesan</span><br>
             <strong>{{ $customer->name }}</strong>
         </div>
-
+        @if($customer->member)
+            <div class="alert alert-info text-center">
+                <i class="fa fa-crown"></i> Pelanggan Setia
+                {{ $customer->tickets_count }}
+            </div>
+        @else
+            <p>Saat ini sudah {{ number_format($customer->tickets_count) }} Tiket</p>
+        @endif
         <div class="d-flex justify-content-end mt-2">
             <button class="btn btn-sm btn-light"
                     wire:click="changeCustomer">

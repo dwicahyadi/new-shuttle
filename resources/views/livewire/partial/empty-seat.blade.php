@@ -1,22 +1,17 @@
 <div>
     <div class="border p-2 rounded @if($selected) border-primary shadow @endif">
-        <div class="">
+        <div class="empty-seat-card">
             <div class="d-flex justify-content-between">
                 <h4>{{ $seatNumber }}</h4>
                 @if($selected)
-                    <div>
+                    <button type="button" class="btn btn-sm btn-danger" wire:click="pickSeats">Tutup</button>
+                @else
 
-                    </div>
-                @endif
+                    <button class="btn btn-sm btn-primary"wire:click="pickSeats" ><i class="fas fa-user-plus"></i> Pilih</button>
+                 @endif
             </div>
 
-            @if($selected)
-                <button type="button" class="btn btn-sm btn-outline-danger" wire:click="pickSeats">Tutup</button>
-            @else
-                <div class="p-4 text-center">
-                    <button class="btn btn-sm btn-outline-primary" wire:click="pickSeats"><i class="fas fa-user-plus"></i> Pilih</button>
-                </div>
-            @endif
+
         </div>
     </div>
 </div>

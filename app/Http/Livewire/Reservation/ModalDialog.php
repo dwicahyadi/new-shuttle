@@ -50,6 +50,12 @@ class ModalDialog extends Component
         $this->emit('updateBill');
         $this->emit('reload');
         $this->getReservation($this->reservation->id);
+
+        $this->dispatchBrowserEvent(
+            'alert', [
+            'title' => 'Pembayaran',
+            'msg' => 'Pembayaran berhasil',
+            'icon' => 'success']);
     }
 
     public function cancelReservation()
@@ -58,6 +64,11 @@ class ModalDialog extends Component
         $this->emit('reservationSaved');
         activity('reservation_log')->performedOn($this->reservation)->causedBy(Auth::user())->log('cancel reservation');
         $this->reservation = null;
+        $this->dispatchBrowserEvent(
+            'alert', [
+            'title' => 'Resevasi',
+            'msg' => 'Reservasi dibatalkan',
+            'icon' => 'success']);
 
     }
 
@@ -74,5 +85,10 @@ class ModalDialog extends Component
         activity('reservation_log')->performedOn($this->reservation)->causedBy(Auth::user())->log('cancel payment');
         $this->emit('reload');
         $this->getReservation($this->reservation->id);
+        $this->dispatchBrowserEvent(
+            'alert', [
+            'title' => 'Pembayaran',
+            'msg' => 'Pembayaran dibatalkan',
+            'icon' => 'success']);
     }
 }

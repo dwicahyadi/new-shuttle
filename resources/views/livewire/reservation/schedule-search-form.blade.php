@@ -7,7 +7,7 @@
         </div>
 
         <div class="form-group">
-            <label>Point Keberangkatan</label>
+            <label>Asal - Tujuan</label>
             <select class="form-control form-control-sm" wire:model.lazy="departurePointId">
                 <option value="">Berangkat dari</option>
                 @forelse($cities as $city)
@@ -22,11 +22,8 @@
 
                 @endforelse
             </select>
-        </div>
 
-        <div class="form-group">
-            <label>Point Keberangkatan</label>
-            <select class="form-control form-control-sm" wire:model.lazy="arrivalPointId">
+            <select class="form-control form-control-sm mt-2" wire:model.lazy="arrivalPointId">
                 <option value="">Tujuan</option>
                 @forelse($cities as $city)
                     <optgroup label="[{{$city->code}}] {{$city->name}}">

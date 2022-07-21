@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Ticket extends Model
@@ -27,6 +29,7 @@ class Ticket extends Model
         'note',
         'date',
         'is_multiroute',
+        'checked_in',
     ];
 
 
@@ -72,5 +75,35 @@ class Ticket extends Model
                 DB::raw('if(tickets.discount_name is null, "Umum", tickets.discount_name) as discount_name'),
                 'tickets.price')
             ->get();
+    }
+
+    public function user_reservation()
+    {
+        return $this->belongsTo(User::class,'reservation_by');
+    }
+
+    public function user_payment()
+    {
+        return $this->belongsTo(User::class,'payment_by');
+    }
+
+    public function getDateAttribute($value)
+    {
+        return Carbon::parse($value)->translatedFormat('l, d M Y');
+    }
+
+    public function getTimeAttribute($value)
+    {
+        return Str::substr($value, 0,5);
+    }
+
+    public function getReservationAtAttribute($value)
+    {
+        return Carbon::parse($value)->translatedFormat('l, d M Y H:i:s');
+    }
+
+    public function getPaymentAtAttribute($value)
+    {
+        return Carbon::parse($value)->translatedFormat('l, d M Y H:i:s');
     }
 }

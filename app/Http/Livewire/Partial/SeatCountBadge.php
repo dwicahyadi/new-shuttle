@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class SeatCountBadge extends Component
 {
-    public $departureId;
+    public $departure;
     public $ticketsCount;
 
     protected $listeners = [
@@ -16,8 +16,7 @@ class SeatCountBadge extends Component
     ];
     public function render()
     {
-        $departure = Departure::with(['schedule'])->withCount('tickets')->find($this->departureId);
-        $this->ticketsCount = $departure->schedule->seats - $departure->tickets_count;
+        $this->ticketsCount = $this->departure->schedule->seats - $this->departure->schedule->tickets()->count();
         return view('livewire.partial.seat-count-badge');
 
     }

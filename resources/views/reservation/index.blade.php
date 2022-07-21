@@ -4,37 +4,25 @@
     <div class = "container-fluid mt-4">
         <div class = "row">
             <div class = "col-md-2">
-                <div class="card">
-                    <div class="card-header p-0">
-                        <ul class="nav nav-tabs nav-justified sticky-top" id="leftSide" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="scheduleSearch" data-toggle="tab" href="#tab-scheduleSearch" role="tab" aria-controls="tab-scheduleSearch" aria-selected="true" title="Cari Jadwal Keberangakatan"><i class="mdi mdi-calendar-search mdi-24px"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="reservationSearch" data-toggle="tab" href="#tab-reservationSearch" role="tab" aria-controls="tab-reservationSearch" aria-selected="false" title="Cari Pelanggan"><i class="mdi  mdi-account-search-outline mdi-24px"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="tabs-contact-tab" data-toggle="tab" href="#tabs-contact" role="tab" aria-controls="tabs-contact" aria-selected="false"  title="Cari Paket"><i class="mdi mdi-briefcase-search-outline mdi-24px"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-
+                <div class="card mb-2 shadow sticky-top">
                     <div class="card-body p-2">
-                        <div class="tab-content" id="leftSideContent">
-                            <div class="tab-pane fade show active" id="tab-scheduleSearch" role="tabpanel" aria-labelledby="scheduleSearch">
-                                @livewire('reservation.schedule-search-form')
-                                @livewire('reservation.schedule-list')
-                            </div>
-                            <div class="tab-pane fade" id="tab-reservationSearch" role="tabpanel" aria-labelledby="reservationSearch">
-                                @livewire('reservation.ticket-search-form')
-                            </div>
-                            <div class="tab-pane fade" id="tabs-contact" role="tabpanel" aria-labelledby="tabs-contact-tab">ini 3</div>
-                        </div>
+                        <strong class="card-title text-center">Cari jadwal</strong>
+                        @livewire('reservation.schedule-search-form')
                     </div>
                 </div>
 
+
             </div>
-            <div class = "col-md-10">
+
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body p-0">
+                        @livewire('reservation.schedule-list')
+                    </div>
+                </div>
+            </div>
+
+            <div class = "col-md-8">
                 @livewire('reservation.departure-info-card')
                 <div class="row">
                     <div class="col-md-12">

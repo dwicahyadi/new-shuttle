@@ -36,9 +36,11 @@ class NewForm extends Component
     ];
 
 
+
     public function mount()
     {
         $this->discounts = Discount::where('active', 1)->get();
+
     }
 
     public function render()
@@ -106,6 +108,11 @@ class NewForm extends Component
         if($this->uniqueNumber) $reservation->transfer_amount = $this->total + $this->uniqueNumber;
         $reservation->note = $this->note ?? null;
         $reservation->save();
+        $this->dispatchBrowserEvent(
+            'alert', [
+            'title' => 'Resevasi',
+            'msg' => 'Reservasi disimpan',
+            'icon' => 'success']);
         return $reservation;
     }
 
@@ -129,7 +136,7 @@ class NewForm extends Component
             $ticket->status = 'unpaid';
             $ticket->count_print = 0;
             $ticket->departure_point_id = $this->ticketDeparturePointId ?? $this->departure->departure_point_id;
-            $ticket->date = Carbon::createFromFormat('d M Y',$this->departure->date)->format('Y-m-d');
+            $ticket->date = Carbon::createFromLocaleFormat('l, d M Y','id',$this->departure->date)->format('Y-m-d');
             $ticket->is_multiroute = $this->isMultiRoute;
             $ticket->save();
         }
@@ -153,6 +160,11 @@ class NewForm extends Component
         $msg = WAHelper::msgBuilder($reservation);
         $wa = WAHelper::send($reservation->customer->phone, $msg);
         activity('reservation_log')->performedOn($reservation)->causedBy(Auth::user())->log('Whatasapp'.$wa);
+        $this->dispatchBrowserEvent(
+            'alert', [
+            'title' => 'Pembayaran',
+            'msg' => 'Pembayaran berhasil',
+            'icon' => 'success']);
     }
 
     public function save()
