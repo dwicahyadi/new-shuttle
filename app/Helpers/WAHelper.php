@@ -10,14 +10,14 @@ class WAHelper
 
     public static function send($phone, $msg)
     {
-        $send = Http::post('https://console.zenziva.net/wareguler/api/sendWA/',[
+        /*$send = Http::post('https://console.zenziva.net/wareguler/api/sendWA/',[
             'userkey' => 'c3y06u',
             'passkey' => 'e0dmk6hcl6',
             'to' => $phone,
             'message' => $msg
         ]);
 
-        return $send;
+        return $send;*/
     }
 
     public static function msgBuilder(Reservation $reservation)

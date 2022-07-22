@@ -104,8 +104,14 @@ class Create extends Component
             $currentDate = date ("Y-m-d", strtotime("+1 day", strtotime($currentDate)));
 
         }
-        session()->flash('message', 'Berhasil disimpan');
-        $this->resetForm();
+        $this->dispatchBrowserEvent(
+            'alert', [
+            'title' => 'Pembuatan Jadwal',
+            'msg' => 'Jadwal berhasil dibuat',
+            'icon' => 'success']);
+
+        $this->departureTimes = [];
+//        $this->resetForm();
     }
 
     /**
